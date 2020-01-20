@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<form action="/update/{{clients.0}}" method="POST">
+    <input type="text" name="nombre" placeholder="Nombre" value="{{ clients.1 }}">
+    <input type="text" name="ip_antena" placeholder="Ipantena" value="{{ clients.2 }}">
+    <input type="text" name="ip_router" placeholder="Iprouter" value="{{ clients.3 }}">
+    <button type="submit">
+        Guardar
+    </button>
+</form>
+
+{% endblock %}

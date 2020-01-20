@@ -1,8 +1,44 @@
-<form action="/add_client" method="POST">
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<form action="/add" method="POST">
     <input type="text" name="nombre" placeholder="Nombre">
-    <input type="text" name="ip_router" placeholder="Iprouter">
     <input type="text" name="ip_antena" placeholder="Ipantena">
+    <input type="text" name="ip_router" placeholder="Iprouter">
     <button type="submit">
         Guardar
     </button>
 </form>
+<table>
+    <thead>
+        <tr>
+            <td>nombre</td>
+            <td>Ip antena</td>
+            <td>Ip Router</td>
+            <td>Operations</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in clients %}
+        <tr>
+            <td>{{client.1}}</td>
+            <td>{{client.2}}</td>
+            <td>{{client.3}}</td>
+            <td>
+                <a href="/edit/{{client.0}}">Edit</a>
+                <a href="/delete/{{client.0}}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
