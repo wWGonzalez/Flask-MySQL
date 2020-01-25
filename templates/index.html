@@ -1,44 +1,86 @@
-{% extends 'base.html' %}
 
+{% extends 'base.html' %}
 {% block body %}
 
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-{% for message in messages %}
-<p>{{ message }}</p>
-{% endfor %}
-{% endif %}
-{% endwith %}
-<form action="/add" method="POST">
-    <input type="text" name="nombre" placeholder="Nombre">
-    <input type="text" name="ip_antena" placeholder="Ipantena">
-    <input type="text" name="ip_router" placeholder="Iprouter">
-    <button type="submit">
-        Guardar
-    </button>
-</form>
-<table>
-    <thead>
-        <tr>
-            <td>nombre</td>
-            <td>Ip antena</td>
-            <td>Ip Router</td>
-            <td>Operations</td>
-        </tr>
-    </thead>
-    <tbody>
-        {% for client in clients %}
-        <tr>
-            <td>{{client.1}}</td>
-            <td>{{client.2}}</td>
-            <td>{{client.3}}</td>
-            <td>
-                <a href="/edit/{{client.0}}">Edit</a>
-                <a href="/delete/{{client.0}}">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="row">
+
+    <!--Empieza la primera columna-->
+    <div class="col-md-3.5">
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <!-- <p>{{ message }}</p> -->
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>{{ message }}</strong> 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Isert Client</h5>
+          <p class="card-text">Insert new client with name, ip router and ip antena</p>
+
+          <form action="/add" method="POST">
+            <div class="form-group">
+              <input type="text" class="form-control" name="nombre" placeholder="name">
+              <small  class="form-text text-muted">Name Costumer</small>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="ip_antena" placeholder="ip antena">
+                <small  class="form-text text-muted">Ip Antena</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="ip_router" placeholder="ip router">
+                <small  class="form-text text-muted">Ip router</small>
+              </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Finaliza la primera columna -->
+
+
+    <div class="col-md-7">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td>nombre</td>
+                    <td>Ip antena</td>
+                    <td>Ip Router</td>
+                    <td>Operations</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                <tr>
+                    <td>{{client.1}}</td>
+                    <td>{{client.2}}</td>
+                    <td>{{client.3}}</td>
+                    <td>
+                        <a href="/edit/{{client.0}}" class="btn btn-primary">Edit</a>
+                        <a href="/delete/{{client.0}}" class="btn btn-warning">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
 
 {% endblock %}
